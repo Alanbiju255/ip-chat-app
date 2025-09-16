@@ -3,7 +3,9 @@ from flask_socketio import SocketIO, send
 
 app = Flask(__name__)
 app.config["SECRET_KEY"] = "secret!"
-socketio = SocketIO(app, cors_allowed_origins="*")
+
+# ✅ Force threading mode to avoid Redis/aioredis issues
+socketio = SocketIO(app, cors_allowed_origins="*", async_mode="threading")
 
 # HTML + CSS inside Python
 html_code = """
